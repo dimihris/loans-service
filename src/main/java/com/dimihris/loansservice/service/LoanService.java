@@ -9,4 +9,6 @@ public interface LoanService {
     LoanDto findLoanDetails(String mobileNumber);
 
     boolean updateLoan(LoanDto loanDto);
+
+    boolean deleteLoan(String mobileNumber);
 }
