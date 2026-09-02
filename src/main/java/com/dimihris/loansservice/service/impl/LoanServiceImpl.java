@@ -1,10 +1,13 @@
 package com.dimihris.loansservice.service.impl;
 
 import com.dimihris.loansservice.constant.LoanConstants;
+import com.dimihris.loansservice.dto.LoanDto;
 import com.dimihris.loansservice.entity.Loan;
 import com.dimihris.loansservice.exception.LoanAlreadyExistsException;
+import com.dimihris.loansservice.exception.ResourceNotFoundException;
 import com.dimihris.loansservice.repository.LoanRepository;
 import com.dimihris.loansservice.service.LoanService;
+import com.dimihris.loansservice.util.mapper.LoanMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,15 @@ public class LoanServiceImpl implements LoanService {
         }
 
         loanRepository.save(createNewLoan(mobileNumber));
+    }
+
+    @Override
+    public LoanDto findLoanDetails(String mobileNumber) {
+
+        Loan loan = loanRepository.findByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new ResourceNotFoundException("Loan", "mobileNumber", mobileNumber));
+
+        return LoanMapper.mapToLoanDto(loan, new LoanDto());
     }
 
     public Loan createNewLoan(String mobileNumber) {

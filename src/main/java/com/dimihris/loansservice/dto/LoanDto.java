@@ -3,7 +3,7 @@ package com.dimihris.loansservice.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data @AllArgsConstructor
+@Data
 public class LoanDto {
 
     private String mobileNumber;

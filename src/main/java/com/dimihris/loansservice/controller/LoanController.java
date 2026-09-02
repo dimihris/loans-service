@@ -1,11 +1,13 @@
 package com.dimihris.loansservice.controller;
 
 import com.dimihris.loansservice.constant.LoanConstants;
+import com.dimihris.loansservice.dto.LoanDto;
 import com.dimihris.loansservice.dto.response.ResponseDto;
 import com.dimihris.loansservice.service.LoanService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,4 +30,13 @@ public class LoanController {
                 .body(new ResponseDto(LoanConstants.STATUS_201, LoanConstants.MESSAGE_201));
     }
 
+    @GetMapping("/find")
+    public ResponseEntity<LoanDto> getLoanDetails(@RequestParam String mobileNumber) {
+
+        LoanDto loanDto = loanService.findLoanDetails(mobileNumber);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(loanDto);
+    }
 }
