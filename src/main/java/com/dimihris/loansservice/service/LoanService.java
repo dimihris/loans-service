@@ -7,4 +7,6 @@ public interface LoanService {
     void createLoan(String mobileNumber);
 
     LoanDto findLoanDetails(String mobileNumber);
+
+    boolean updateLoan(LoanDto loanDto);
 }

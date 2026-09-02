@@ -15,4 +15,15 @@ public class LoanMapper {
 
         return loanDto;
     }
+
+    public static Loan mapToLoan(LoanDto loanDto, Loan loan) {
+        loan.setMobileNumber(loanDto.getMobileNumber());
+        loan.setLoanNumber(loanDto.getLoanNumber());
+        loan.setLoanType(loanDto.getLoanType());
+        loan.setTotalLoan(loanDto.getTotalLoan());
+        loan.setPaidAmount(loanDto.getPaidAmount());
+        loan.setOutstandingAmount(loanDto.getOutstandingAmount());
+
+        return loan;
+    }
 }

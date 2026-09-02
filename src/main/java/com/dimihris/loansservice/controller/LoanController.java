@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,5 +40,21 @@ public class LoanController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(loanDto);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<ResponseDto> updateLoanDetails(@RequestBody LoanDto loanDto) {
+
+        boolean isUpdated = loanService.updateLoan(loanDto);
+
+        if (isUpdated) {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseDto(LoanConstants.STATUS_200, LoanConstants.MESSAGE_200));
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.EXPECTATION_FAILED)
+                    .body(new ResponseDto(LoanConstants.STATUS_417, LoanConstants.MESSAGE_417_UPDATE));
+        }
     }
 }
